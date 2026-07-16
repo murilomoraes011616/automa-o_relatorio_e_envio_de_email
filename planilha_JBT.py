@@ -1,11 +1,12 @@
 ################
 import xlwings as xw # importa a biblioteca para manipular o excel .
+from datetime import date
+import time
 
-
-app = xw.App(visible=False)   # cria a instância do Excel; visible=False roda em segundo plano
+app = xw.App(visible=True)   # cria a instância do Excel; visible=False roda em segundo plano
 app.display_alerts = False   # suprime qualquer alerta/pop-up do Excel, incluindo esse
 wb = app.books.open(
-    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Faturamento\Mapa de Faturamento\Mapa_Faturamento_SAPHANA_julho.26 (diário).xlsm',
+    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Faturamento\Mapa de Faturamento\Mapa_Faturamento_SAPHANA_v2.06_JAB.xlsm',
     update_links=0   # 0 = não atualiza vínculos automaticamente ao abrir, e não pergunta nada
 )
 
@@ -23,9 +24,9 @@ time.sleep(25) #espera 10 segundos no codigo apenas para poder para garantir a a
 
 ##ETAPA DE TIRAR O PRINT DA IMAGEM DA TABELA 
 
-aba = wb.sheets('Indicador Faturamento-julho')   # 1. ele pega o wb.sheets na aba da tabela dinamica e trasnforma na variavel aba
+aba = wb.sheets('mapa_diario')   # 1. ele pega o wb.sheets na aba da tabela dinamica e trasnforma na variavel aba
 
-aba.api.PageSetup.PrintArea = 'B2:AB22'             # chegamos em uma parte que a biblioteca nao traduziu, então criou uma especie de porta dos fundos, a api., que usando a aba que queremos, e ela, depois podemos dar comandos que o excel usa porem nao traduzidos, normalmente em VBA, fazendo que possamos continuar a  programar em python, o .PageSetup
+aba.api.PageSetup.PrintArea = 'A2:O50'             # chegamos em uma parte que a biblioteca nao traduziu, então criou uma especie de porta dos fundos, a api., que usando a aba que queremos, e ela, depois podemos dar comandos que o excel usa porem nao traduzidos, normalmente em VBA, fazendo que possamos continuar a  programar em python, o .PageSetup
 
 aba.api.PageSetup.Orientation = 2               # O que é PageSetup? É um objeto nativo do Excel que reúne todas as configurações relacionadas a impressão/exportação de página: margens, orientação, cabeçalho, rodapé, área de impressão, escala, etc. É exatamente o que você configura manualmente indo em Layout da Página no Excel, O que é Orientation? Define se a exportação será em retrato (vertical, como uma folha de carta em pé) ou paisagem (horizontal, deitada) — útil pra tabelas largas, como a sua.
                                                 #Por que o número 2? Aqui é importante entender: como estamos usando o Excel/VBA "cru" através do .api, e não a versão traduzida do Python, não temos nomes bonitos disponíveis (tipo "paisagem"). O VBA original usa constantes numéricas pra isso:retrato = 1 e paisagem = 2
