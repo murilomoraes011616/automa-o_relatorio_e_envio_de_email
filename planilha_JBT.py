@@ -1,7 +1,5 @@
 ################
 import xlwings as xw # importa a biblioteca para manipular o excel .
-from datetime import date   # importa sobemente a função date da biblioteca datetime de pega a data, biblioteca do python ja.
-import time # importa biblioteca para poder dar o comando de esperar 10 segundos 
 
 
 app = xw.App(visible=False)   # cria a instância do Excel; visible=False roda em segundo plano
