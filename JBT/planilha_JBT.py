@@ -58,3 +58,8 @@ aba.api.ExportAsFixedFormat(0, fr'C:\Users\murilo.oliveira\OneDrive - Greentech\
 #              │     ├── .FitToPagesWide = 1
 #              │     └── .FitToPagesTall = 1
 #              └── .ExportAsFixedFormat(0, 'caminho.pdf')  (método, executa a exportação)
+
+
+###### ETAPA DE MANDAR O EMAIL ANEXADO PARA OS EMAIL ESCOLHIDOS:
+
+import win32com.client
