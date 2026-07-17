@@ -27,6 +27,7 @@ corpo_do_email = mail.body # escrita do corpo do email.
 print(f"4 - o corpo do email é: {corpo_do_email}")
 print("--------")
 
+
 print("--------")
 lista_emails = [
     "cristiane@greentech.log.br",
@@ -40,6 +41,14 @@ mail.To = ";".join(lista_emails) #lista de destinatarios do email
 destinatarios = mail.to 
 print(f"5 - os destinatarios dos email são: {destinatarios}")
 print("--------")
+
+
+
+
+
+
+
+
 
 
 
