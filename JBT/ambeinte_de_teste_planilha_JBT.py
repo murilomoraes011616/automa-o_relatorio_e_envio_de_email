@@ -15,7 +15,7 @@ print("--------")
 
 
 print("--------")
-mail.subject = "assunto teste"
+mail.subject = "assunto teste" # feito para definir o assunto do email
 assunto_do_email = mail.Subject
 print(f"3 - o assunto do email é: {assunto_do_email}")
 print("--------")
@@ -23,7 +23,7 @@ print("--------")
 
 print("--------")
 mail.Body = f" Bom dia, seguem anexos os mapas de faturamento de julho, atualizados até {data_de_hoje}, (Lembrando que as metas individuais não estão atualizadas), att Murilo MoraeS"
-corpo_do_email = mail.body
+corpo_do_email = mail.body # escrita do corpo do email.
 print(f"4 - o corpo do email é: {corpo_do_email}")
 print("--------")
 
@@ -36,7 +36,7 @@ lista_emails = [
     "felipe.andriolo@greentech.log.br",
     "marcelo.mota@greentech.log.br",
 ]
-mail.To = ";".join(lista_emails)
+mail.To = ";".join(lista_emails) #lista de destinatarios do email
 destinatarios = mail.to 
 print(f"5 - os destinatarios dos email são: {destinatarios}")
 print("--------")
