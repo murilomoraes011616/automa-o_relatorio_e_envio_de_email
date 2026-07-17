@@ -1,5 +1,11 @@
 import win32com.client
 outlook = win32com.client.Dispatch("Outlook.Application")
-print(outlook.Name)
+print("1 - conectado ao outlook")
+
 mail = outlook.CreateItem(0)
-print(mail)
+print("2 - mail criado")
+
+print(type(mail))
+print(mail.Subject)
+
+print("3"), 
