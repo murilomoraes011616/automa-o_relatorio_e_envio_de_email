@@ -43,6 +43,24 @@ print(f"5 - os destinatarios dos email são: {destinatarios}")
 print("--------")
 
 
+print("--------")
+lista_copias = [
+    "andre.santos@greentech.log.br", 
+    "rodrigo.ferrarezzo@greentech.log.br", 
+    "miguel.savtchen@greentech.log.br", 
+    "karina.palmieri@greentech.log.br", 
+    "marcelo.valerio@greentech.log.br", 
+    "patricia.pinheiro@greentech.log.br", 
+    "sarah@greentech.log.br",  
+    "elisabete.ferreira@greentech.log.br",  
+]
+mail.CC = ";".join(lista_copias) #lista de copias do email
+copias = mail.CC
+print(f"5 - as copias dos email são: {copias}")
+print("--------")
+
+
+
 
 
 
