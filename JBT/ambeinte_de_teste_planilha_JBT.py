@@ -56,8 +56,17 @@ lista_copias = [
 ]
 mail.CC = ";".join(lista_copias) #lista de copias do email
 copias = mail.CC
-print(f"5 - as copias dos email são: {copias}")
+print(f"6 - as copias dos email são: {copias}")
 print("--------")
+
+
+
+
+
+
+
+
+
 
 
 
