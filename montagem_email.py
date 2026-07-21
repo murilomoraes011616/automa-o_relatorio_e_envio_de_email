@@ -28,7 +28,6 @@ meu_texto = (
 )
 
 # Passo 3: junta seu texto com a assinatura (texto primeiro, assinatura depois)
-mail.HTMLBody = meu_texto + assinatura
 texto_final = meu_texto + assinatura
 print(len(texto_final))
 print("<img" in texto_final)
@@ -75,9 +74,9 @@ print("--------")
 
 
 print("--------")
-arquivo_JAB = r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\controle de venda JBT.pdf'
-arquivo_MMO = r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\controle de venda MMO.pdf'
-arquivo_resumo = r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\controle de venda Resumo.pdf'
+arquivo_JAB = r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\Mapa de faturamento JBT.pdf'
+arquivo_MMO = r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\cMapa de faturamento MMO.pdf'
+arquivo_resumo = r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\Mapa de faturamento Resumo.pdf'
 lista_diretorios = [arquivo_JAB, arquivo_resumo, arquivo_MMO]
 for diretorios in lista_diretorios:
     mail.Attachments.Add(diretorios)
