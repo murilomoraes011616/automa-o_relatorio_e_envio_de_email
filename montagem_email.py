@@ -65,15 +65,15 @@ print("--------")
 
 print("--------")
 arquivo_JAB = r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\controle de venda JBT.pdf'
-#arquivo_MMO = r' '
-#arquivo_resumo = r''
-lista_diretorios = [arquivo_JAB]
+arquivo_MMO = r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\controle de venda MMO.pdf'
+arquivo_resumo = r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\controle de venda Resumo.pdf'
+lista_diretorios = [arquivo_JAB, arquivo_resumo, arquivo_MMO]
 for diretorios in lista_diretorios:
     mail.Attachments.Add(diretorios)
     print(diretorios)
 
 print("esperando 10 segundos para poder abrir o display")
-time.sleep(10)
+time.sleep(10) #trocar para 30 segundos quando entrar em produção 
 mail.Display()
 print("--------")
 
