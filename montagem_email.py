@@ -23,7 +23,7 @@ print("--------")
 
 
 print("--------")
-mail.Body = f" Bom dia, seguem anexos os mapas de faturamento de julho, atualizados até {data_de_hoje}, (Lembrando que as metas individuais não estão atualizadas), att Murilo MoraeS"
+mail.Body = f" Bom dia.\\nSeguem anexos os mapas de faturamento de julho, atualizados até {data_de_hoje}.\\n(Lembrando que as metas individuais não estão atualizadas).\\nAtenciosamente,"
 corpo_do_email = mail.body # escrita do corpo do email.
 print(f"4 - o corpo do email é: {corpo_do_email}")
 print("--------")
