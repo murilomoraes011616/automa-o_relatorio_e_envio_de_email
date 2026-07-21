@@ -58,30 +58,24 @@ lista_copias = [
 mail.CC = ";".join(lista_copias) #lista de copias do email
 copias = mail.CC
 print(f"6 - as copias dos email são: {copias}")
-print("--------")
-
-
-print("--------")
-#time.sleep(10)
-#anexar_arquivo_MMO = mail.Attachments.Add()
-#print(" 7- anexando mapa de faturamento de MMO")
-
-anexar_arquivo_JAB = mail.Attachments.Add(r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\controle de venda JBT.pdf')
-print(" 8 - anexando mapa de faturamento de JAB")
-
-#anexar_arquivo_Resumo = mail.Attachments.Add()
-#print(" 9 - anexando mapa de faturamento de Resumo")
+time.sleep(10)
 print("--------")
 
 
 
+print("--------")
+arquivo_JAB = r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\controle de venda JBT.pdf'
+#arquivo_MMO = r' '
+#arquivo_resumo = r''
+lista_diretorios = [arquivo_JAB]
+for diretorios in lista_diretorios:
+    mail.Attachments.Add(diretorios)
+    print(diretorios)
 
-
-
-
-
-
-
+print("esperando 10 segundos para poder abrir o display")
+time.sleep(10)
+mail.Display()
+print("--------")
 
 
 
