@@ -1,5 +1,6 @@
 import win32com.client
 from datetime import date
+import time
 
 #---------------------
 data_de_hoje = date.today()
@@ -15,7 +16,7 @@ print("--------")
 
 
 print("--------")
-mail.subject = "assunto teste" # feito para definir o assunto do email
+mail.Subject = "assunto teste" # feito para definir o assunto do email
 assunto_do_email = mail.Subject
 print(f"3 - o assunto do email é: {assunto_do_email}")
 print("--------")
@@ -59,6 +60,18 @@ copias = mail.CC
 print(f"6 - as copias dos email são: {copias}")
 print("--------")
 
+
+print("--------")
+#time.sleep(10)
+#anexar_arquivo_MMO = mail.Attachments.Add()
+#print(" 7- anexando mapa de faturamento de MMO")
+
+anexar_arquivo_JAB = mail.Attachments.Add(r'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\controle de venda JBT.pdf')
+print(" 8 - anexando mapa de faturamento de JAB")
+
+#anexar_arquivo_Resumo = mail.Attachments.Add()
+#print(" 9 - anexando mapa de faturamento de Resumo")
+print("--------")
 
 
 
