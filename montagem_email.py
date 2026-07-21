@@ -14,18 +14,29 @@ mail = outlook.CreateItem(0) #aqui ele segue a arvore, sendo outlook, ou outloo.
 print("2 - mail criado") 
 print("--------")
 
+# Passo 1: força o Outlook a carregar a assinatura padrão e guarda ela
+inspetor = mail.GetInspector
+assinatura = mail.HTMLBody
+print(len(assinatura))
+
+# Passo 2: monta seu texto em HTML (usa <br> no lugar de \n)
+meu_texto = (
+    f"Bom dia,<br><br>"
+    f"seguem anexos os mapas de faturamento de julho, atualizados até {data_de_hoje}, "
+    f"(Lembrando que as metas individuais não estão atualizadas)<br><br>"
+    f"att,<br>"
+)
+
+# Passo 3: junta seu texto com a assinatura (texto primeiro, assinatura depois)
+mail.HTMLBody = meu_texto + assinatura
+texto_final = meu_texto + assinatura
+print(len(texto_final))
+print("<img" in texto_final)
 
 print("--------")
-mail.Subject = "assunto teste" # feito para definir o assunto do email
+mail.Subject = f"Mapas de faturamento do dia {data_de_hoje}." # feito para definir o assunto do email
 assunto_do_email = mail.Subject
 print(f"3 - o assunto do email é: {assunto_do_email}")
-print("--------")
-
-
-print("--------")
-mail.Body = f" Bom dia.\n\nSeguem anexos os mapas de faturamento de julho, atualizados até {data_de_hoje}.\n\n(Lembrando que as metas individuais não estão atualizadas).\n\nnAtenciosamente,"
-corpo_do_email = mail.body # escrita do corpo do email.
-print(f"4 - o corpo do email é: {corpo_do_email}")
 print("--------")
 
 
@@ -76,6 +87,7 @@ print("esperando 10 segundos para poder abrir o display")
 time.sleep(10) #trocar para 30 segundos quando entrar em produção 
 mail.Display()
 print("--------")
+print(data_de_hoje)
 
 
 
