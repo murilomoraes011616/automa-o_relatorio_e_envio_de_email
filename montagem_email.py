@@ -1,6 +1,7 @@
 import win32com.client
 from datetime import date
 import time
+from datetime import strftime
 
 #---------------------
 data_de_hoje = date.today()
@@ -15,14 +16,12 @@ print("2 - mail criado")
 
 
 
-
 print("--------")
-
 inspetor = mail.GetInspector
 assinatura = mail.HTMLBody
 meu_texto = (
     f"Bom dia,<br><br>"
-    f"Seguem anexos os mapas de faturamento de julho, atualizados até {data_de_hoje}. "
+    f"Seguem anexos os mapas de faturamento {data_de_hoje.strftime("%B")}, atualizados até {data_de_hoje}. "
     f"(Lembrando que as metas individuais não estão atualizadas.)<br><br>"
     f"Att,<br><br>"
 )
