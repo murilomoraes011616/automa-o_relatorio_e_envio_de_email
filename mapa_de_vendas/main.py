@@ -16,6 +16,7 @@ abrir_planilha.activate() #essa linha faz com que mostre pra mim que aba pedido 
 wb.api.RefreshAll() #atualiza o arquivo todo, conexões com bancos externas também, atuaiza com os dados que recebeu antes desta linha 
 time.sleep(15) #como a linha de cima so atualiza e nas proximas linhas vou precisar trabalhar com os dados atualizados, essa linha garante de uma forma bem ruim que ls dados estejam atualizados antes de eu dar o proximo comando para o excel, é uma forma que da pra melhorar, mas por enquanto, vai servir.
 
-ultima_linha = abrir_planilha.range('P1').end('down').row
-coluna_P = abrir_planilha.range(f'P1:P{ultima_linha}')
-valores = coluna_P.value
+
+ultima_linha = abrir_planilha.range('P2').end('down').row
+ultima_coluna = abrir_planilha.range('P2').end('left').row
+tabela = abrir_planilha.range((1, 1), (ultima_linha, ultima_coluna))
