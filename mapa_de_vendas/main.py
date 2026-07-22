@@ -9,3 +9,5 @@ wb = app.books.open(
     r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 - Jul26.xlsx',
     update_links=0   # 0 = não atualiza vínculos automaticamente ao abrir, e não pergunta nada
 )
+abrir_planilha = wb.sheets('Pedido de venda')
+wb.api.RefreshAll()
