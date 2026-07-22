@@ -10,4 +10,10 @@ wb = app.books.open(
     update_links=0   # 0 = não atualiza vínculos automaticamente ao abrir, e não pergunta nada
 )
 abrir_planilha = wb.sheets('Pedido de venda')
+abrir_planilha.activate()
 wb.api.RefreshAll()
+ultima_linha = abrir_planilha.range('P1').end('down').row
+coluna_P = abrir_planilha.range(f'P1:P{ultima_linha}')
+print(ultima_linha)
+valores = coluna_P.value
+print(valores)
