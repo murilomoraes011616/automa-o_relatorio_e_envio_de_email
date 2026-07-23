@@ -24,8 +24,8 @@ print(tabela) #print o valor da range acima
 
 
 tabela.api.AutoFilter(Field=16, Criteria1="#N/D") #tabela.api.autofilter tem o campo FIELD=16 que significa a coluna, que no caso de A até P, a coluna P é a 16, e o campo criterial é o filtro que vao colocar naquela coluna, e o filtro e so na quela coluna pois uarem os dados dela como parametro ams usa a tabela range inteira por que queremos os dados de todas as linhas mas o filtroé só em uma coluna 
-tabela.select() #apenas mostra a tange selecionada visualmente pro programador
-wb.api.RefreshAll() 
+wb.api.RefreshAll()
+tabela.select() #apenas mostra a tange selecionada visualmente pro programador 
 tabela_filtrada = tabela.api.SpecialCells(12)
 tabela_filtrada.copy() 
 
