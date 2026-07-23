@@ -13,7 +13,6 @@ wb = app.books.open(
 
 abrir_planilha = wb.sheets('Pedido de venda') #nessa linha tranformamos o wb.sheets(Pedido de Venda) em uma varaivel, basicamente esse sheet é uma função do wlwin
 abrir_planilha.activate() #essa linha faz com que mostre pra mim que aba pedido de vendas foi aberta, pois na linha de cima ela so entrou na aba, mas não significa que mostrou pra mim, o usúario
-wb.api.RefreshAll() #atualiza o arquivo todo, conexões com bancos externas também, atuaiza com os dados que recebeu antes desta linha 
 time.sleep(15) #como a linha de cima so atualiza e nas proximas linhas vou precisar trabalhar com os dados atualizados, essa linha garante de uma forma bem ruim que ls dados estejam atualizados antes de eu dar o proximo comando para o excel, é uma forma que da pra melhorar, mas por enquanto, vai servir.
 
 
@@ -24,7 +23,6 @@ print(tabela) #print o valor da range acima
 
 
 tabela.api.AutoFilter(Field=16, Criteria1="#N/D") #tabela.api.autofilter tem o campo FIELD=16 que significa a coluna, que no caso de A até P, a coluna P é a 16, e o campo criterial é o filtro que vao colocar naquela coluna, e o filtro e so na quela coluna pois uarem os dados dela como parametro ams usa a tabela range inteira por que queremos os dados de todas as linhas mas o filtroé só em uma coluna 
-wb.api.RefreshAll()
 tabela.select() #apenas mostra a tange selecionada visualmente pro programador 
 tabela_filtrada = tabela.api.SpecialCells(12)
 tabela_filtrada.copy() 
@@ -32,5 +30,4 @@ tabela_filtrada.copy()
 
 abrir_planilha_filtro_ajustado = wb.sheets('Filtro - canal ajustado') #nessa linha tranformamos o wb.sheets(Pedido de Venda) em uma varaivel, basicamente esse sheet é uma função do wlwin
 abrir_planilha_filtro_ajustado.activate() #essa linha faz com que mostre pra mim que aba pedido de vendas foi aberta, pois na linha de cima ela so entrou na aba, mas não significa que mostrou pra mim, o usúario
-wb.api.RefreshAll() #atualiza o arquivo todo, conexões com bancos externas também, atuaiza com os dados que recebeu antes desta linha 
-time.sleep(15)
+
