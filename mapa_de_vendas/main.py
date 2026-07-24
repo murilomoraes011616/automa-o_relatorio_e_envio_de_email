@@ -51,3 +51,13 @@ tabela_filtro_ajustado.api.AutoFilter(
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 
+
+tabela_filtro_ajustado = abrir_planilha_filtro_ajustado.range((2, 11), (ultima_linha_filtro_ajustado, 11))
+tabela_filtro_ajustado.select() #apenas mostra a tange selecionada visualmente pro programador 
+tabela_filtro_ajustado = tabela.api.SpecialCells(12)
+tabela_filtro_ajustado.Copy() 
+
+
+
+
+
