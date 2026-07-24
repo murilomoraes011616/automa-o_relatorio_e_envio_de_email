@@ -25,8 +25,8 @@ print(tabela) #print o valor da range acima
 
 tabela.api.AutoFilter(Field=16, Criteria1 = "#N/D") #tabela.api.autofilter tem o campo FIELD=16 que significa a coluna, que no caso de A até P, a coluna P é a 16, e o campo criterial é o filtro que vao colocar naquela coluna, e o filtro e so na quela coluna pois uarem os dados dela como parametro ams usa a tabela range inteira por que queremos os dados de todas as linhas mas o filtroé só em uma coluna 
 tabela.select() #apenas mostra a tange selecionada visualmente pro programador 
-tabela_filtrada = tabela.api.SpecialCells(12)
-tabela_filtrada.Copy() 
+tabela_filtrada = tabela.api.SpecialCells(12) #nessa linha tranforma a range definida acima em obejto para se tornar manipulavel 
+tabela_filtrada.Copy() #copia essa range 
 
 
 #abrir planilho filtro -Ajustado:
@@ -51,14 +51,14 @@ tabela_filtro_ajustado.api.AutoFilter(
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 
-tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
-print(tabela_filtro_ajustado2)
-coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
-coluna_n_visivel.Formula = "=RC[-3]"
+tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14)) # NESSA LINHA, EU DEFINO A RANHE, QUE E A segunda linha da coluna k e a ultima linha da coluna K 
+print(tabela_filtro_ajustado2) #printo pra ver se os valores estão corretos
+coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12) #
+coluna_n_visivel.Formula = "=RC[-3]" #esccrevendo em RC wur a celula n e igual a mesma linha -3, entso s K 
 
 
-abrir_planilha_filtro_ajustado.api.ShowAllData()
-tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao")
+abrir_planilha_filtro_ajustado.api.ShowAllData() #etria os filtros ora range funcionar
+tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao") #usa como area de filtro a mesma range de antes, mas pega locação
 
 
 
