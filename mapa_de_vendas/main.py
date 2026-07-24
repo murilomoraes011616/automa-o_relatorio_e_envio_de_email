@@ -57,6 +57,9 @@ coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
 coluna_n_visivel.Formula = "=RC[-3]"
 
 
+abrir_planilha_filtro_ajustado.api.ShowAllData()
+tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao")
+
 
 
 
