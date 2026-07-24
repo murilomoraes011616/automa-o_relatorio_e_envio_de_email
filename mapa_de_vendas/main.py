@@ -57,10 +57,11 @@ coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12) #
 coluna_n_visivel.Formula = "=RC[-3]" #esccrevendo em RC wur a celula n e igual a mesma linha -3, entso s K 
 
 
+time.sleep(3)
 abrir_planilha_filtro_ajustado.api.ShowAllData() #etria os filtros ora range funcionar
 tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao") #usa como area de filtro a mesma range de antes, mas pega locação
-
-
-
-
+tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
+print(tabela_filtro_ajustado2) #printo pra ver se os valores estão corretos
+coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
+coluna_n_visivel.Formula = "=RC[-7]"
 
