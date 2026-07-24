@@ -33,7 +33,7 @@ tabela_filtrada.Copy()
 abrir_planilha_filtro_ajustado = wb.sheets('Filtro - canal ajustado') #nessa linha tranformamos o wb.sheets(Pedido de Venda) em uma varaivel, basicamente esse sheet é uma função do wlwin
 abrir_planilha_filtro_ajustado.activate() #essa linha faz com que mostre pra mim que aba pedido de vendas foi aberta, pois na linha de cima ela so entrou na aba, mas não significa que mostrou pra mim, o usúario
 proxima_linha_vazia = abrir_planilha_filtro_ajustado.range('A2').end('down').row + 1 #faz a mesma coisa de antes, porem agora usa como referencia a primeira celula da minha range,.end('down') vai até a ultima linha preenchida + 1, oque da na primeira linha vazia da primeira coluna, que e onde a gente vai colar nossas infromações 
-abrir_planilha_filtro_ajustado.range(f'A{proxima_linha_vazia}').paste()
+abrir_planilha_filtro_ajustado.range(f'A{proxima_linha_vazia}').paste(paste='values') #Isso resolveria os dois sintomas de uma vez: o #VALOR! sumiria (porque você colaria o
 print(proxima_linha_vazia)
 
 
@@ -47,6 +47,7 @@ tabela_filtro_ajustado.api.AutoFilter(
 )
 tabela_filtro_ajustado.api.AutoFilter(
     Field=11,
-    Criteria1=["Vazias", "EQPNovo", "Avarias"],
+    Criteria1=["Pecas", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", " ", ""],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
+
