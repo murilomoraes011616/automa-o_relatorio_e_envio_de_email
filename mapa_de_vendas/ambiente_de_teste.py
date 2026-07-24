@@ -39,7 +39,7 @@ print(proxima_linha_vazia)
 
 ultima_linha_filtro_ajustado = abrir_planilha_filtro_ajustado.range('N2').end('down').row #aqui range sgnifica um pedaçõ do codigo(P2) é o ponrto que ele usa como referencia, o .end(down) siginifia a mesma coisa que aperta ctrl seta ora baixo, entao vai pra ultima linha e .row te fala o nuemro dessa linha, ou seja ele usa a celula p2 como referencia, vai pra ultima linha e ega esse n8mero, oque sinigiffica a ultima linha da planilha 
 ultima_coluna_filtro_ajustado = abrir_planilha_filtro_ajustado.range('A2').end('right').column # mesma logica da linha de cima, porem ele quer saber aultima coluna, afim de fechar o quadrado da tabela total que vai ser selecionado para ser copiado no futuro 
-tabela_filtro_ajustado = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, ultima_coluna_filtro_ajustado))
+tabela_filtro_ajustado = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, ultima_coluna_filtro_ajustado)) # nessa linha ele define a range, que usa como referenci ao a2, que usa como referencia a ultima coluna e a ultima linha para poder abrangir a tabela toda, pois mesmo que nao iremos filtrar ela inteira, quero as ifnromações da tabela toda em relação ao filtro de uma coluna 
 tabela_filtro_ajustado.api.AutoFilter(
     Field=14,
     Criteria1=["#N/D", "0", "vazia", "Vazia", "VAZIA", "#VALOR!"],
