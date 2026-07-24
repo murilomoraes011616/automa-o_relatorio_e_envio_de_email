@@ -51,14 +51,11 @@ tabela_filtro_ajustado.api.AutoFilter(
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 
-tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 11), (ultima_linha_filtro_ajustado, 11)) #agora queremos selecionar a coluna K, pra isso primeiros criaremos uma range opara servir de espaço para copiar, esse comando usa como numeros as referencias das ranges,sendo 11 a coluna k e a outra variavel o numero da linha, que no final ficaria algo como K2:K3257tabela_filtro_ajustado.select() #apenas mostra a tange selecionada visualmente pro programador 
-tabela_filtro_ajustado2.select() 
-tabela_filtro_ajustado2 = tabela_filtro_ajustado2.api.SpecialCells(12) #CRIA O FILTRO QUE PEGANMOS EM UM OBJETO,PARA QUE POSSA SER SELECIONADO, por que o fitlro apenas mostras aquelaes que satisfazem as condições que colocamos, porém não significa que os que não passaram não estão la, por que estão, so estão invisiveis, e esse comando torna os que passaram em um objeto, em uma especie de "tabela nova" para de fato podermos copiar a range.
-tabela_filtro_ajustado2.Copy() #esta linha é a que de fato copia o objeto que criamos na linha acima 
-print(tabela_filtro_ajustado2.Copy())
+tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
+print(tabela_filtro_ajustado2)
+coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
+coluna_n_visivel.Formula = "=RC[-3]"
 
-
-tabela_filtro_ajustado2.range('N2').paste()
 
 
 
