@@ -65,33 +65,51 @@ coluna_n_correcao.api.Replace(What="Venda servicos", Replacement="Servicos", Loo
 tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao")
 tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
 coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
+
+
+
+
+
 for linha in range(2, ultima_linha_filtro_ajustado + 1):
 
-    descricao = abrir_planilha_filtro_ajustado.range(f"G{linha}").value
+    # Lê o valor da coluna K (Canal de Venda)
+    canal = abrir_planilha_filtro_ajustado.range((linha, 11)).value
 
+    # Se estiver vazia, pula a linha
+    if canal is None:
+        continue
+
+    # Padroniza o texto
+    canal = canal.upper().strip()
+
+    # Só executa a lógica para linhas cuja coluna K é "Locacao"
+    if canal != "LOCACAO":
+        continue
+
+    # Lê a descrição da coluna G
+    descricao = abrir_planilha_filtro_ajustado.range((linha, 7)).value
+
+    # Se estiver vazia, pula a linha
     if descricao is None:
         continue
 
-    descricao = descricao.upper()
-    if "RENOVA" in descricao.upper():
-        print(f"Linha: {linha}")
-        print(repr(descricao))
-        print(len(descricao))
-        print("-" * 30)
+    # Padroniza o texto
+    descricao = descricao.upper().strip()
 
+    # Verifica as palavras da descrição
     if "INCREMENTO" in descricao:
-        abrir_planilha_filtro_ajustado.range(f"N{linha}").value = "INCREMENTO"
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = "INCREMENTO"
 
     elif "REAJUSTE" in descricao:
-        abrir_planilha_filtro_ajustado.range(f"N{linha}").value = "REAJUSTE"
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = "REAJUSTE"
 
     elif "NOVO CONTRATO" in descricao:
-        abrir_planilha_filtro_ajustado.range(f"N{linha}").value = "NOVO CONTRATO"
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = "NOVO CONTRATO"
 
     elif "RENOVA" in descricao:
-        abrir_planilha_filtro_ajustado.range(f"N{linha}").value = "RENOVAÇÃO"
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = "RENOVAÇÃO"
 
     else:
-        abrir_planilha_filtro_ajustado.range(f"N{linha}").value = ""
-print("programa finalizado")
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = ""
 
+print("Programa finalizado")

@@ -39,27 +39,29 @@ print(proxima_linha_vazia)
 
 ultima_linha_filtro_ajustado = abrir_planilha_filtro_ajustado.range('N2').end('down').row #aqui range sgnifica um pedaçõ do codigo(P2) é o ponrto que ele usa como referencia, o .end(down) siginifia a mesma coisa que aperta ctrl seta ora baixo, entao vai pra ultima linha e .row te fala o nuemro dessa linha, ou seja ele usa a celula p2 como referencia, vai pra ultima linha e ega esse n8mero, oque sinigiffica a ultima linha da planilha 
 ultima_coluna_filtro_ajustado = abrir_planilha_filtro_ajustado.range('A2').end('right').column # mesma logica da linha de cima, porem ele quer saber aultima coluna, afim de fechar o quadrado da tabela total que vai ser selecionado para ser copiado no futuro 
-tabela_filtro_ajustado = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, ultima_coluna_filtro_ajustado)) # nessa linha ele define a range, que usa como referenci ao a2, que usa como referencia a ultima coluna e a ultima linha para poder abrangir a tabela toda, pois mesmo que nao iremos filtrar ela inteira, quero as ifnromações da tabela toda em relação ao filtro de uma coluna 
+tabela_filtro_ajustado = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, ultima_coluna_filtro_ajustado))
 tabela_filtro_ajustado.api.AutoFilter(
     Field=14,
     Criteria1=["#N/D", "0", "vazia", "Vazia", "VAZIA", "#VALOR!"],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 tabela_filtro_ajustado.api.AutoFilter(
-    Field=11,  #co.una que usaremos como filtro 
-    Criteria1=["Pecas", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", " ", ""], #palavra que passaram no filtro
+    Field=11,
+    Criteria1=["Pecas", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", " ", ""],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 
-tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14)) # NESSA LINHA, EU DEFINO A RANHE, QUE E A segunda linha da coluna k e a ultima linha da coluna K 
-print(tabela_filtro_ajustado2) #printo pra ver se os valores estão corretos
-coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12) #
-coluna_n_visivel.Formula = "=RC[-3]" #esccrevendo em RC wur a celula n e igual a mesma linha -3, entso s K 
 
-#AQUI  VAMOS fazer nonovo o provesso de alterar celulas, porem agora alteraremos a coluna N que esta em relação a locacao, que e aquela que não mechemos anteriormente 
-time.sleep(3)
-abrir_planilha_filtro_ajustado.api.ShowAllData() #etria os filtros ora range funcionar
-tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao") #usa como area de filtro a mesma range de antes, mas pega locação
 tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
 coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
-coluna_n_visivel.FormulaR1C1 = '=IF(ISNUMBER(SEARCH("REA",RC[-7])),"REAJUSTE",IF(ISNUMBER(SEARCH("INC",RC[-7])),"INCREMENTO",IF(ISNUMBER(SEARCH("NOV",RC[-7])),"NOVO CONTRATO",IF(ISNUMBER(SEARCH("REN",RC[-7])),"RENOVAÇÃO",RC[-7]))))'
+coluna_n_visivel.FormulaR1C1 = "=RC[-3]"
+
+time.sleep(3)
+abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tudo visível de novo
+
+coluna_n_correcao = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
+coluna_n_correcao.api.Replace(What="Venda servicos", Replacement="Servicos", LookAt=1) # agora roda com tudo visível
+
+tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao")
+tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
+coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
