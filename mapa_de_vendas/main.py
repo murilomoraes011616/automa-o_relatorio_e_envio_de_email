@@ -66,6 +66,6 @@ coluna_n_correcao.api.Replace(What="Venda servicos", Replacement="Servicos", Loo
 tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao")
 tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
 coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
-coluna_n_visivel.FormulaR1C1 = "=RC[-7]"
+coluna_n_visivel.FormulaR1C1 = coluna_n_visivel.FormulaR1C1 = '=IF(ISNUMBER(SEARCH("REA",RC[-7])),"REAJUSTE",IF(ISNUMBER(SEARCH("INC",RC[-7])),"INCREMENTO",IF(ISNUMBER(SEARCH("NOV",RC[-7])),"NOVO CONTRATO",IF(ISNUMBER(SEARCH("REN",RC[-7])),"RENOVAÇÃO",RC[-7]))))'
 
 
