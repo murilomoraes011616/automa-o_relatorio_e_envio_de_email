@@ -61,7 +61,6 @@ abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tudo visíve
 
 coluna_n_correcao = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
 coluna_n_correcao.api.Replace(What="Venda servicos", Replacement="Servicos", LookAt=1) # agora roda com tudo visível
-
 tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao")
 tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
 coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
