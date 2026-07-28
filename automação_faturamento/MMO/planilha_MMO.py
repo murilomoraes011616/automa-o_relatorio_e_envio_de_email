@@ -63,3 +63,4 @@ aba.api.ExportAsFixedFormat(0, fr'C:\Users\murilo.oliveira\OneDrive - Greentech\
 ###### ETAPA DE MANDAR O EMAIL ANEXADO PARA OS EMAIL ESCOLHIDOS:
 
 import win32com.client
+wb.close()
