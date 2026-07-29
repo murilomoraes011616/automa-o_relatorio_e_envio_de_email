@@ -75,26 +75,25 @@ for linha in range(2, ultima_linha_filtro_ajustado + 1):           #ele cria a v
     canal = abrir_planilha_filtro_ajustado.range((linha, 11)).value        #agora cria a variavel canal, que e a varaivel que abre a aba da planilha de filtro ajustado. range que agoralro coincidencia e uma função do xwlings, que agora recebve os parametros de linah , coluna, e como iremos usar de referecnai a coluna K, canal de vendas, ele pega essa coluna, mais a linha da varaivel temporaria, que uma hora vai ser 2, depois 3, depiis 4 e assism vai... e .value faz ele me retonar o valor, entao por exemploq aul valor da range (nesse caso celula) K2, e me retna o valor, que guarda dentro dessa variavel.
 
     # aqui é uma especie de verificação do valor da variavel canal, se ela estiver vazia, que retorna NONE, ele somente continua, entao ele oula aquela variavel 
-    if canal is None:
+    if canal is None:             #tambem quero que celulas vazias usem como referecnia o campo de descrição, por isso criei esse if 
         canal = ""
     else:
-        canal = canal.upper().strip()
+        canal = canal.upper().strip()                #aqui queremos padronizar o texxto para que nas linhas seguintes ele seja filtrado sem erros, então o upper() tranforma o texto em MAISCULAS e o strip() retira eventuais espaços, como " locacao" vira "LOCACAO"
 
     # Só executa a lógica para linhas cuja coluna K é "Locacao"
-    if canal != "LOCACAO" and canal != "":
-        continue
-
+    if canal != "LOCACAO" and canal != "":                   # se a variavel canal nao for nenhuma dessas duas, nao passa, se fosse azul nao passaria mas se fosse LOCACAO satisfazeria apenas um lado da condição, oque nao acionario o continue e deixaria essa variavel passar para proximos passos 
+        continue               #continue quer dizer que ira pular pra proxima variavel temporaria no for, que no caso aqui seria a proxima linha 
     # Lê a descrição da coluna G
-    descricao = abrir_planilha_filtro_ajustado.range((linha, 7)).value
+    descricao = abrir_planilha_filtro_ajustado.range((linha, 7)).value                     #valor da coluna de descrição
 
     # Se estiver vazia, pula a linha
-    if descricao is None:
+    if descricao is None:           #se ela estiver vazia pula a linha, oque e meio inutil pois nunca estará
         continue
 
     # Padroniza o texto
-    descricao = descricao.upper().strip()
+    descricao = descricao.upper().strip()         
 
-    # Verifica as palavras da descrição
+    # Verifica as palavras da descrição contem tais letras, se contiverem mudam o valor da coluna N
     if "INCREMENTO" in descricao:
         abrir_planilha_filtro_ajustado.range((linha, 14)).value = "INCREMENTO"
 
@@ -107,7 +106,7 @@ for linha in range(2, ultima_linha_filtro_ajustado + 1):           #ele cria a v
     elif "RENOVA" in descricao:
         abrir_planilha_filtro_ajustado.range((linha, 14)).value = "RENOVAÇÃO"
 
-    else:
-        abrir_planilha_filtro_ajustado.range((linha, 14)).value = ""
+    else: 
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = ""       #se nao contiver nenhum, deixa vazio 
 
 print("Programa finalizado")
