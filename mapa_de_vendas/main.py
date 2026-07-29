@@ -63,22 +63,22 @@ coluna_n_correcao = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_
 coluna_n_correcao.api.Replace(What="Venda servicos", Replacement="Servicos", LookAt=1) # agora roda com tudo visível
 tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao")
 tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
-coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
 
 
 
 
 
-for linha in range(2, ultima_linha_filtro_ajustado + 1):
+
+for linha in range(2, ultima_linha_filtro_ajustado + 1):           #ele cria a variavel temporaria "linha" na range(em python significa sequencia), começando do numero dois e indo ate o numero que representa a ultima linha da minha tabela + 1, ainda não meche no excel, é apenas python cirnado uma sequencia que usa como ultimo numero uma variavel que sim vem do excel Xwlings 
 
     # Lê o valor da coluna K (Canal de Venda)
-    canal = abrir_planilha_filtro_ajustado.range((linha, 11)).value
+    canal = abrir_planilha_filtro_ajustado.range((linha, 11)).value        #agora cria a variavel canal, que e a varaivel que abre a aba da planilha de filtro ajustado. range que agoralro coincidencia e uma função do xwlings, que agora recebve os parametros de linah , coluna, e como iremos usar de referecnai a coluna K, canal de vendas, ele pega essa coluna, mais a linha da varaivel temporaria, que uma hora vai ser 2, depois 3, depiis 4 e assism vai... e .value faz ele me retonar o valor, entao por exemploq aul valor da range (nesse caso celula) K2, e me retna o valor, que guarda dentro dessa variavel.
 
-    # Se estiver vazia, pula a linha
+    # aqui é uma especie de verificação do valor da variavel canal, se ela estiver vazia, que retorna NONE, ele somente continua, entao ele oula aquela variavel 
     if canal is None:
         continue
 
-    # Padroniza o texto
+    # Padroniza o texto 
     canal = canal.upper().strip()
 
     # Só executa a lógica para linhas cuja coluna K é "Locacao"
