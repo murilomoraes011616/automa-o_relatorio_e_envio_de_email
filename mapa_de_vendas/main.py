@@ -76,13 +76,12 @@ for linha in range(2, ultima_linha_filtro_ajustado + 1):           #ele cria a v
 
     # aqui é uma especie de verificação do valor da variavel canal, se ela estiver vazia, que retorna NONE, ele somente continua, entao ele oula aquela variavel 
     if canal is None:
-        continue
-
-    # Padroniza o texto 
-    canal = canal.upper().strip()
+        canal = ""
+    else:
+        canal = canal.upper().strip()
 
     # Só executa a lógica para linhas cuja coluna K é "Locacao"
-    if canal != "LOCACAO":
+    if canal != "LOCACAO" and canal != "":
         continue
 
     # Lê a descrição da coluna G
