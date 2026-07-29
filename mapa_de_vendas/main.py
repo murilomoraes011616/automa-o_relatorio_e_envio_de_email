@@ -42,7 +42,7 @@ ultima_coluna_filtro_ajustado = abrir_planilha_filtro_ajustado.range('A2').end('
 tabela_filtro_ajustado = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, ultima_coluna_filtro_ajustado))
 tabela_filtro_ajustado.api.AutoFilter(
     Field=14,
-    Criteria1=["#N/D", "0", "vazia", "Vazia", "VAZIA", "#VALOR!"],
+    Criteria1=["#N/D", "0", "vazia", "Vazia", "VAZIA", "#VALOR!", ""],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 tabela_filtro_ajustado.api.AutoFilter(
@@ -108,5 +108,21 @@ for linha in range(2, ultima_linha_filtro_ajustado + 1):           #ele cria a v
 
     else: 
         abrir_planilha_filtro_ajustado.range((linha, 14)).value = ""       #se nao contiver nenhum, deixa vazio 
+
+abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tudo visível de novo
+
+tabela_filtro_ajustado.api.AutoFilter(
+    Field=14,
+    Criteria1=["#N/D", "0", "vazia", "Vazia", "VAZIA", "#VALOR!", "", " "],
+    Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
+)
+
+
+
+
+
+
+
+
 
 print("Programa finalizado")

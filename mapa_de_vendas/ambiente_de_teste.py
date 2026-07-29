@@ -6,7 +6,7 @@ import time # importa biblioteca para poder dar o comando de esperar 10 segundos
 app = xw.App(visible=True)   # cria a instância do Excel; visible=False roda em segundo plano
 app.display_alerts = False   # suprime qualquer alerta/pop-up do Excel, incluindo esse
 wb = app.books.open(
-    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas_automatizado v0 - Jul26 - Copia.xlsx',
+    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 AUTOMATIZADO - Jul26 - Copia.xlsx',
     update_links=0   # 0 = não atualiza vínculos automaticamente ao abrir, e não pergunta nada
 )
 
@@ -42,7 +42,7 @@ ultima_coluna_filtro_ajustado = abrir_planilha_filtro_ajustado.range('A2').end('
 tabela_filtro_ajustado = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, ultima_coluna_filtro_ajustado))
 tabela_filtro_ajustado.api.AutoFilter(
     Field=14,
-    Criteria1=["#N/D", "0", "vazia", "Vazia", "VAZIA", "#VALOR!"],
+    Criteria1=["#N/D", "0", "vazia", "Vazia", "VAZIA", "#VALOR!", ""],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 tabela_filtro_ajustado.api.AutoFilter(
@@ -55,13 +55,3 @@ tabela_filtro_ajustado.api.AutoFilter(
 tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
 coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
 coluna_n_visivel.FormulaR1C1 = "=RC[-3]"
-
-time.sleep(3)
-abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tudo visível de novo
-
-coluna_n_correcao = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
-coluna_n_correcao.api.Replace(What="Venda servicos", Replacement="Servicos", LookAt=1) # agora roda com tudo visível
-
-tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao")
-tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
-coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
