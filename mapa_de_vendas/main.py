@@ -47,7 +47,7 @@ tabela_filtro_ajustado.api.AutoFilter(
 )
 tabela_filtro_ajustado.api.AutoFilter(
     Field=11,
-    Criteria1=["Pecas", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", " ", ""],
+    Criteria1=["Pecas", "EQPUsado", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", " ", ""],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 
@@ -116,11 +116,15 @@ tabela_filtro_ajustado.api.AutoFilter(
     Criteria1=["#N/D", "0", "vazia", "Vazia", "VAZIA", "#VALOR!", "", " "],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
-
-
-
-
-
+print("chegou até o teste")
+range_colunaa = abrir_planilha.range((2, 1), (ultima_linha_filtro_ajustado, 1)) 
+coluna_a_visivel = range_colunaa.api.SpecialCells(12)
+for linha in range( 2, ultima_linha_filtro_ajustado+ 1): 
+ coluna_a = abrir_planilha_filtro_ajustado.range((linha, 1)).value 
+ if coluna_a in coluna_a_visivel:
+     print(coluna_a)
+ else:
+    continue
 
 
 
