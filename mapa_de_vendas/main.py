@@ -119,6 +119,9 @@ tabela_filtro_ajustado.api.AutoFilter(
 print("chegou até o teste")
 range_colunaa = abrir_planilha.range((2, 1), (ultima_linha_filtro_ajustado, 1)) 
 coluna_a_visivel = range_colunaa.api.SpecialCells(12)
+valores = []
+for celula in coluna_a_visivel:
+    valores.append(celula.Value)
 for linha in range( 2, ultima_linha_filtro_ajustado+ 1): 
  coluna_a = abrir_planilha_filtro_ajustado.range((linha, 1)).value 
  if coluna_a in coluna_a_visivel:
