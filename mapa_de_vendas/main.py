@@ -6,7 +6,7 @@ import time # importa biblioteca para poder dar o comando de esperar 10 segundos
 app = xw.App(visible=True)   # cria a instância do Excel; visible=False roda em segundo plano
 app.display_alerts = False   # suprime qualquer alerta/pop-up do Excel, incluindo esse
 wb = app.books.open(
-    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 - Jul26 - AUTOMATIZADO2.xlsx',
+    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 -AUTOMATIZADO3 julho.xlsx',
     update_links=0   # 0 = não atualiza vínculos automaticamente ao abrir, e não pergunta nada
 )
 
@@ -127,7 +127,7 @@ for celula in coluna_a_visivel:
     valores.append(celula.Value)
 for linha in range( 2, ultima_linha_filtro_ajustado+ 1): 
  coluna_a = abrir_planilha_filtro_ajustado.range((linha, 1)).value 
- if coluna_a in coluna_a_visivel:
+ if coluna_a in valores:
      print(coluna_a)
  else:
     continue
