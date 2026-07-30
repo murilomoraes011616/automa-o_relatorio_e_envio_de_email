@@ -123,10 +123,10 @@ tabela_filtro_ajustado.api.AutoFilter(
 
 
 print("chegou até o teste")
-range_colunaa = abrir_planilha.range((2, 1), (ultima_linha_filtro_ajustado, 1)) 
-coluna_a_visivel = range_colunaa.api.SpecialCells(12)
+range_colunaa = abrir_planilha.range((2, 1), (ultima_linha_filtro_ajustado, 1)) #aqui nessa linha ele pega a range que passou pelo filtro 
+coluna_a_visivel = range_colunaa.api.SpecialCells(12)  # ja aqui tonra essa rnage filtrada, visivel, para que possamos manuipular os valores dela 
 
-valores = set()                                        
+valores = set()      #set tem a função dde receber valores e excluir aqueles repetidos                                   
 for celula in coluna_a_visivel:                         
     valores.add(celula.Value)                                                            
 for valor in valores:
