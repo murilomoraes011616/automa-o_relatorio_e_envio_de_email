@@ -127,10 +127,10 @@ range_colunaa = abrir_planilha.range((2, 1), (ultima_linha_filtro_ajustado, 1)) 
 coluna_a_visivel = range_colunaa.api.SpecialCells(12)  # ja aqui tonra essa rnage filtrada, visivel, para que possamos manuipular os valores dela 
 
 valores = set()      #set tem a função dde receber valores e excluir aqueles repetidos                                   
-for celula in coluna_a_visivel:                         
-    valores.add(celula.Value)                                                            
+for celula in coluna_a_visivel:    #os valores da range que a gente pegou, pega valor por valor                      
+    valores.add(celula.Value)                 #adiciona o campo value desses valores dentro do nosso set                                            
 for valor in valores:
-    print(valor)
+    print(valor)    #esse fot foi para pegar os valores que estao dentro do set valores, que sao aqueles que nao estão repetidos, pois se nao pegasse os valores dentro dele, pegaria os que nao tao dentro do set, logo os repetidos.
 
 
 
