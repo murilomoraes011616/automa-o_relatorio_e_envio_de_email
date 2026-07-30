@@ -125,6 +125,8 @@ coluna_a_visivel = range_colunaa.api.SpecialCells(12)
 valores = []
 for celula in coluna_a_visivel:
     valores.append(celula.Value)
+
+    #daqui pra frente e uma verificação inutil 
 for linha in range( 2, ultima_linha_filtro_ajustado+ 1): 
  coluna_a = abrir_planilha_filtro_ajustado.range((linha, 1)).value 
  if coluna_a in valores:
