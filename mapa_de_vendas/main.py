@@ -133,7 +133,7 @@ for valor in valores:
     print(valor)    #esse fot foi para pegar os valores que estao dentro do set valores, que sao aqueles que nao estão repetidos, pois se nao pegasse os valores dentro dele, pegaria os que nao tao dentro do set, logo os repetidos.
 
 time.sleep(5)
-abrir_planilha_PVS_deletados = wb.sheets("PVS_deletados")
+abrir_planilha_PVS_deletados = wb.sheets("PVS_deletados") #abre a panilha de pvs pra serem deletados 
 proxima_linha_vazia = abrir_planilha_PVS_deletados.range('A1').end('down').row + 1 #faz a mesma coisa de antes, porem agora usa como referencia a primeira celula da minha range,.end('down') vai até a ultima linha preenchida + 1, oque da na primeira linha vazia da primeira coluna, que e onde a gente vai colar nossas infromações 
 
 
