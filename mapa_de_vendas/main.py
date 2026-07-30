@@ -37,7 +37,7 @@ abrir_planilha_filtro_ajustado.range(f'A{proxima_linha_vazia}').paste(paste='val
 print(proxima_linha_vazia)
 
 
-ultima_linha_filtro_ajustado = abrir_planilha_filtro_ajustado.range('N2').end('down').row #aqui range sgnifica um pedaçõ do codigo(P2) é o ponrto que ele usa como referencia, o .end(down) siginifia a mesma coisa que aperta ctrl seta ora baixo, entao vai pra ultima linha e .row te fala o nuemro dessa linha, ou seja ele usa a celula p2 como referencia, vai pra ultima linha e ega esse n8mero, oque sinigiffica a ultima linha da planilha 
+ultima_linha_filtro_ajustado = abrir_planilha_filtro_ajustado.range('A2').end('down').row #aqui range sgnifica um pedaçõ do codigo(P2) é o ponrto que ele usa como referencia, o .end(down) siginifia a mesma coisa que aperta ctrl seta ora baixo, entao vai pra ultima linha e .row te fala o nuemro dessa linha, ou seja ele usa a celula p2 como referencia, vai pra ultima linha e ega esse n8mero, oque sinigiffica a ultima linha da planilha 
 ultima_coluna_filtro_ajustado = abrir_planilha_filtro_ajustado.range('A2').end('right').column # mesma logica da linha de cima, porem ele quer saber aultima coluna, afim de fechar o quadrado da tabela total que vai ser selecionado para ser copiado no futuro 
 tabela_filtro_ajustado = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, ultima_coluna_filtro_ajustado))
 tabela_filtro_ajustado.api.AutoFilter(
@@ -47,14 +47,17 @@ tabela_filtro_ajustado.api.AutoFilter(
 )
 tabela_filtro_ajustado.api.AutoFilter(
     Field=11,
-    Criteria1=["Pecas", "EQPUsado", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", " ", ""],
+    Criteria1=["Pecas", "EQPUsado", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev"],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 
-
+print("Última linha:", ultima_linha_filtro_ajustado)
 tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
+print("Endereço:", tabela_filtro_ajustado2.address)
 coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
 coluna_n_visivel.FormulaR1C1 = "=RC[-3]"
+
+
 
 time.sleep(3)
 abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tudo visível de novo
