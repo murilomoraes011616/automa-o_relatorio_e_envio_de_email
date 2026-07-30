@@ -134,6 +134,7 @@ for valor in valores:
 
 time.sleep(5)
 abrir_planilha_PVS_deletados = wb.sheets("PVS_deletados")
+proxima_linha_vazia = abrir_planilha_PVS_deletados.range('A1').end('down').row + 1 #faz a mesma coisa de antes, porem agora usa como referencia a primeira celula da minha range,.end('down') vai até a ultima linha preenchida + 1, oque da na primeira linha vazia da primeira coluna, que e onde a gente vai colar nossas infromações 
 
 
 
