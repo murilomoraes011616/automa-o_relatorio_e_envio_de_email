@@ -47,7 +47,7 @@ tabela_filtro_ajustado.api.AutoFilter(
 )
 tabela_filtro_ajustado.api.AutoFilter(
     Field=11,
-    Criteria1=["Pecas", "EQPUsado", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev"],
+    Criteria1=["Pecas", "EQPUsado", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", "Comissao"],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 
