@@ -132,6 +132,8 @@ for celula in coluna_a_visivel:    #os valores da range que a gente pegou, pega 
 for valor in valores:
     print(valor)    #esse fot foi para pegar os valores que estao dentro do set valores, que sao aqueles que nao estão repetidos, pois se nao pegasse os valores dentro dele, pegaria os que nao tao dentro do set, logo os repetidos.
 
+time.sleep(5)
+abrir_planilha_PVS_deletados = wb.sheets("PVS_deletados")
 
 
 
