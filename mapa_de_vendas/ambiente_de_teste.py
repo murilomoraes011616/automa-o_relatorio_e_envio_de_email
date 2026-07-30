@@ -6,7 +6,7 @@ import time # importa biblioteca para poder dar o comando de esperar 10 segundos
 app = xw.App(visible=True)   # cria a instância do Excel; visible=False roda em segundo plano
 app.display_alerts = False   # suprime qualquer alerta/pop-up do Excel, incluindo esse
 wb = app.books.open(
-    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 AUTOMATIZADO - Jul26 - Copia.xlsx',
+    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 -AUTOMATIZADO3 julho.xlsx',
     update_links=0   # 0 = não atualiza vínculos automaticamente ao abrir, e não pergunta nada
 )
 
@@ -47,7 +47,7 @@ tabela_filtro_ajustado.api.AutoFilter(
 )
 tabela_filtro_ajustado.api.AutoFilter(
     Field=11,
-    Criteria1=["Pecas", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", " ", ""],
+    Criteria1=["Pecas", "EQPUsado", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", " ", ""],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 
@@ -55,3 +55,84 @@ tabela_filtro_ajustado.api.AutoFilter(
 tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
 coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
 coluna_n_visivel.FormulaR1C1 = "=RC[-3]"
+
+time.sleep(3)
+abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tudo visível de novo
+
+coluna_n_correcao = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
+coluna_n_correcao.api.Replace(What="Venda servicos", Replacement="Servicos", LookAt=1) # agora roda com tudo visível
+tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao")
+tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
+
+
+
+
+
+
+for linha in range(2, ultima_linha_filtro_ajustado + 1):           #ele cria a variavel temporaria "linha" na range(em python significa sequencia), começando do numero dois e indo ate o numero que representa a ultima linha da minha tabela + 1, ainda não meche no excel, é apenas python cirnado uma sequencia que usa como ultimo numero uma variavel que sim vem do excel Xwlings 
+
+    # Lê o valor da coluna K (Canal de Venda)
+    canal = abrir_planilha_filtro_ajustado.range((linha, 11)).value        #agora cria a variavel canal, que e a varaivel que abre a aba da planilha de filtro ajustado. range que agoralro coincidencia e uma função do xwlings, que agora recebve os parametros de linah , coluna, e como iremos usar de referecnai a coluna K, canal de vendas, ele pega essa coluna, mais a linha da varaivel temporaria, que uma hora vai ser 2, depois 3, depiis 4 e assism vai... e .value faz ele me retonar o valor, entao por exemploq aul valor da range (nesse caso celula) K2, e me retna o valor, que guarda dentro dessa variavel.
+
+    # aqui é uma especie de verificação do valor da variavel canal, se ela estiver vazia, que retorna NONE, ele somente continua, entao ele oula aquela variavel 
+    if canal is None:             #tambem quero que celulas vazias usem como referecnia o campo de descrição, por isso criei esse if 
+        canal = ""
+    else:
+        canal = canal.upper().strip()                #aqui queremos padronizar o texxto para que nas linhas seguintes ele seja filtrado sem erros, então o upper() tranforma o texto em MAISCULAS e o strip() retira eventuais espaços, como " locacao" vira "LOCACAO"
+
+    # Só executa a lógica para linhas cuja coluna K é "Locacao"
+    if canal != "LOCACAO" and canal != "":                   # se a variavel canal nao for nenhuma dessas duas, nao passa, se fosse azul nao passaria mas se fosse LOCACAO satisfazeria apenas um lado da condição, oque nao acionario o continue e deixaria essa variavel passar para proximos passos 
+        continue               #continue quer dizer que ira pular pra proxima variavel temporaria no for, que no caso aqui seria a proxima linha 
+    # Lê a descrição da coluna G
+    descricao = abrir_planilha_filtro_ajustado.range((linha, 7)).value                     #valor da coluna de descrição
+
+    # Se estiver vazia, pula a linha
+    if descricao is None:           #se ela estiver vazia pula a linha, oque e meio inutil pois nunca estará
+        continue
+
+    # Padroniza o texto
+    descricao = descricao.upper().strip()         
+
+    # Verifica as palavras da descrição contem tais letras, se contiverem mudam o valor da coluna N
+    if "INCREMENTO" in descricao:
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = "INCREMENTO"
+
+    elif "REAJUSTE" in descricao:
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = "REAJUSTE"
+
+    elif "NOVO CONTRATO" in descricao:
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = "NOVO CONTRATO"
+
+    elif "RENOVA" in descricao:
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = "RENOVAÇÃO"
+
+    else: 
+        abrir_planilha_filtro_ajustado.range((linha, 14)).value = ""       #se nao contiver nenhum, deixa vazio 
+
+abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tudo visível de novo
+
+#filtrando para ficcar somente aqueles que tem o valor vazio,  que serão excluidos no power query 
+tabela_filtro_ajustado.api.AutoFilter(
+    Field=14,
+    Criteria1=["#N/D", "0", "vazia", "Vazia", "VAZIA", "#VALOR!", "", " "],
+    Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
+)
+
+
+print("chegou até o teste")
+range_colunaa = abrir_planilha.range((2, 1), (ultima_linha_filtro_ajustado, 1)) 
+coluna_a_visivel = range_colunaa.api.SpecialCells(12)
+valores = []
+for celula in coluna_a_visivel:
+    valores.append(celula.Value)
+for linha in range( 2, ultima_linha_filtro_ajustado+ 1): 
+ coluna_a = abrir_planilha_filtro_ajustado.range((linha, 1)).value 
+ if coluna_a in valores:
+     print(coluna_a)
+ else:
+    continue
+ 
+print("Programa finalizado")
+
+
+#MELHORAR FILTROS POIS ALGUNS EQPUsados TAO FICANDO COM VALOR pecas, INVESTIGAR.

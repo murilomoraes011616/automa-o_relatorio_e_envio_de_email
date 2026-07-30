@@ -131,7 +131,15 @@ for linha in range( 2, ultima_linha_filtro_ajustado+ 1):
      print(coluna_a)
  else:
     continue
- 
+
+
+
+
+
+
+
+
+
 print("Programa finalizado")
 
 
