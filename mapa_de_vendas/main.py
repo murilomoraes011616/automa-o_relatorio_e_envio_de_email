@@ -144,10 +144,10 @@ print(proxima_linha_vazia_pv_excluidos)
 
 print("---------- jogar os pvs na outra planilha ----------")
 linha_pv_excluido = proxima_linha_vazia_pv_excluidos # tranforma o nome da varaivel que busca a ultima linha 
-for docnum in valores:
-    abrir_planilha_PVS_deletados.range((linha_pv_excluido,1)).value = docnum
-    linha_pv_excluido += 1
-    print(f" a linha 'A{linha_pv_excluido}' recebe o valor {docnum}")
+for docnum in valores:         #para cada valor dentro do set valores 
+    abrir_planilha_PVS_deletados.range((linha_pv_excluido,1)).value = docnum       #pega a proxima linha vazia na coluna a
+    linha_pv_excluido += 1           #faz virar a proima linha 
+    print(f" a linha 'A{linha_pv_excluido}' recebe o valor {docnum}") #print apenas para vizualização 
 
 
 print("---------- Programa finalizado ----------") 
