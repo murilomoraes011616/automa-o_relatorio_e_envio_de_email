@@ -157,5 +157,18 @@ print("---------- Programa finalizado ----------")
 #abrir_planilha.api.ShowAllData()
 #wb.sheets('Filtro - canal ajustado')
 #abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tirando da outra planilha só por precaução
+##############################################################################################################################################################################
+
+#CODIGO M E POWER QUERY 
 
 
+
+
+
+
+
+
+##############################################################################################################################################################################
+ 
+
+ #PARTE DE EXPORTAR O GRAFICO E MONTAR O EMAIL A
