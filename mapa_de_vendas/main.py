@@ -6,7 +6,7 @@ import time # importa biblioteca para poder dar o comando de esperar 10 segundos
 app = xw.App(visible=True)   # cria a instância do Excel; visible=False roda em segundo plano
 app.display_alerts = False   # suprime qualquer alerta/pop-up do Excel, incluindo esse
 wb = app.books.open(
-    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 -AUTOMATIZADO3 julho.xlsx',
+    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 - Jul26 AUTOMATIZADO4.xlsx',
     update_links=0   # 0 = não atualiza vínculos automaticamente ao abrir, e não pergunta nada
 )
 
@@ -113,6 +113,8 @@ for linha in range(2, ultima_linha_filtro_ajustado + 1):           #ele cria a v
         abrir_planilha_filtro_ajustado.range((linha, 14)).value = ""       #se nao contiver nenhum, deixa vazio 
 
 abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tudo visível de novo
+abrir_planilha.api.ShowAllData() # tira os filtros, tirando da outra planilha só por precaução
+
 
 #filtrando para ficcar somente aqueles que tem o valor vazio,  que serão excluidos no power query 
 tabela_filtro_ajustado.api.AutoFilter(
@@ -122,8 +124,8 @@ tabela_filtro_ajustado.api.AutoFilter(
 )
 
 
-print("chegou até o teste")
-range_colunaa = abrir_planilha.range((2, 1), (ultima_linha_filtro_ajustado, 1)) #aqui nessa linha ele pega a range que passou pelo filtro 
+print("---------- listagem dos pvs a serem excluidos ----------")
+range_colunaa = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, 1)) #aqui nessa linha ele pega a range que passou pelo filtro 
 coluna_a_visivel = range_colunaa.api.SpecialCells(12)  # ja aqui tonra essa rnage filtrada, visivel, para que possamos manuipular os valores dela 
 
 valores = set()      #set tem a função dde receber valores e excluir aqueles repetidos                                   
@@ -132,9 +134,19 @@ for celula in coluna_a_visivel:    #os valores da range que a gente pegou, pega 
 for valor in valores:
     print(valor)    #esse fot foi para pegar os valores que estao dentro do set valores, que sao aqueles que nao estão repetidos, pois se nao pegasse os valores dentro dele, pegaria os que nao tao dentro do set, logo os repetidos.
 
+
+print("--------------- processo de listar PVS a serem excluidos ---------------")
 time.sleep(5)
 abrir_planilha_PVS_deletados = wb.sheets("PVS_deletados") #abre a panilha de pvs pra serem deletados 
-proxima_linha_vazia = abrir_planilha_PVS_deletados.range('A1').end('down').row + 1 #faz a mesma coisa de antes, porem agora usa como referencia a primeira celula da minha range,.end('down') vai até a ultima linha preenchida + 1, oque da na primeira linha vazia da primeira coluna, que e onde a gente vai colar nossas infromações 
+proxima_linha_vazia_pv_excluidos = abrir_planilha_PVS_deletados.range('A1').end('down').row + 1 #faz a mesma coisa de antes, porem agora usa como referencia a primeira celula da minha range,.end('down') vai até a ultima linha preenchida + 1, oque da na primeira linha vazia da primeira coluna, que e onde a gente vai colar nossas infromações 
+print(proxima_linha_vazia_pv_excluidos)
+
+print("---------- jogar os pvs na outra planilha ----------")
+linha_pv_excluido = proxima_linha_vazia_pv_excluidos
+for docnum in valores:
+    abrir_planilha.range((linha_pv_excluido,1)).value = docnum
+    linha_pv_excluido += 1
+    print(f" a linha A{linha_pv_excluido} recebe o valor {docnum}")
 
 
 
@@ -143,8 +155,6 @@ proxima_linha_vazia = abrir_planilha_PVS_deletados.range('A1').end('down').row +
 
 
 
+print("---------- Programa finalizado ----------")
 
-print("Programa finalizado")
 
-
-#MELHORAR FILTROS POIS ALGUNS EQPUsados TAO FICANDO COM VALOR pecas, INVESTIGAR.
