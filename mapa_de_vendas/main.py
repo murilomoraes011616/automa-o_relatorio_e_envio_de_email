@@ -70,8 +70,6 @@ tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_
 
 
 
-
-
 for linha in range(2, ultima_linha_filtro_ajustado + 1):           #ele cria a variavel temporaria "linha" na range(em python significa sequencia), começando do numero dois e indo ate o numero que representa a ultima linha da minha tabela + 1, ainda não meche no excel, é apenas python cirnado uma sequencia que usa como ultimo numero uma variavel que sim vem do excel Xwlings 
 
     # Lê o valor da coluna K (Canal de Venda)
