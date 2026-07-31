@@ -139,15 +139,16 @@ print("--------------- processo de listar PVS a serem excluidos ---------------"
 time.sleep(5)
 abrir_planilha_PVS_deletados = wb.sheets("PVS_deletados") #abre a panilha de pvs pra serem deletados 
 proxima_linha_vazia_pv_excluidos = abrir_planilha_PVS_deletados.range('A1').end('down').row + 1 #faz a mesma coisa de antes, porem agora usa como referencia a primeira celula da minha range,.end('down') vai até a ultima linha preenchida + 1, oque da na primeira linha vazia da primeira coluna, que e onde a gente vai colar nossas infromações 
+
+
 print(proxima_linha_vazia_pv_excluidos)
 
 print("---------- jogar os pvs na outra planilha ----------")
 linha_pv_excluido = proxima_linha_vazia_pv_excluidos
 for docnum in valores:
-    abrir_planilha.range((linha_pv_excluido,1)).value = docnum
+    abrir_planilha_PVS_deletados.range((linha_pv_excluido,1)).value = docnum
     linha_pv_excluido += 1
-    print(f" a linha A{linha_pv_excluido} recebe o valor {docnum}")
-
+    print(f" a linha 'A{linha_pv_excluido}' recebe o valor {docnum}")
 
 
 
@@ -156,5 +157,5 @@ for docnum in valores:
 
 
 print("---------- Programa finalizado ----------")
-
+wb.save()
 
