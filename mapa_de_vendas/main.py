@@ -148,7 +148,6 @@ for docnum in valores:         #para cada valor dentro do set valores
     print(f" a linha 'A{linha_pv_excluido}' recebe o valor {docnum}") #print apenas para vizualização 
 
 
-print("---------- Programa finalizado ----------") 
 
 #POR PRECAUÇÃO:
 #wb.sheets('Pedido de venda')
@@ -187,3 +186,6 @@ aba.api.PageSetup.FitToPagesWide = 1              # 5. FitToPagesWide = 1 → a 
 aba.api.PageSetup.FitToPagesTall = 1              # 6. FitToPagesTall = 1 → a tabela inteira, não importa quantas linhas tenha, deve caber na altura de uma única página
 
 aba.api.ExportAsFixedFormat(0, fr'C:\Users\murilo.oliveira\OneDrive - Greentech\Perfil\Desktop\pastas para coisas da  automações\automação de tabela toda segunda\MAPA DE VENDAS.pdf')  # 7. Claro! Vamos ler essa linha inteira em texto corrido, explicando o papel de cada parte conforme ela aparece.
+
+
+print("---------- Programa finalizado ----------") 
