@@ -6,7 +6,7 @@ import time # importa biblioteca para poder dar o comando de esperar 10 segundos
 app = xw.App(visible=True)   # cria a instância do Excel; visible=False roda em segundo plano
 app.display_alerts = False   # suprime qualquer alerta/pop-up do Excel, incluindo esse
 wb = app.books.open(
-    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 - Jul26 AUTOMATIZADO4.xlsx',
+    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 - Jul26 -AUTOMATIZADO5.xlsx',
     update_links=0   # 0 = não atualiza vínculos automaticamente ao abrir, e não pergunta nada
 )
 
@@ -140,7 +140,6 @@ time.sleep(5)
 abrir_planilha_PVS_deletados = wb.sheets("PVS_deletados") #abre a panilha de pvs pra serem deletados 
 proxima_linha_vazia_pv_excluidos = abrir_planilha_PVS_deletados.range('A1').end('down').row + 1 #faz a mesma coisa de antes, porem agora usa como referencia a primeira celula da minha range,.end('down') vai até a ultima linha preenchida + 1, oque da na primeira linha vazia da primeira coluna, que e onde a gente vai colar nossas infromações 
 
-
 print(proxima_linha_vazia_pv_excluidos)
 
 print("---------- jogar os pvs na outra planilha ----------")
@@ -151,11 +150,12 @@ for docnum in valores:
     print(f" a linha 'A{linha_pv_excluido}' recebe o valor {docnum}")
 
 
+print("---------- Programa finalizado ----------") 
 
+#POR PRECAUÇÃO:
+#wb.sheets('Pedido de venda')
+#abrir_planilha.api.ShowAllData()
+#wb.sheets('Filtro - canal ajustado')
+#abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tirando da outra planilha só por precaução
 
-
-
-
-print("---------- Programa finalizado ----------")
-wb.save()
 

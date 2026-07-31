@@ -6,7 +6,7 @@ import time # importa biblioteca para poder dar o comando de esperar 10 segundos
 app = xw.App(visible=True)   # cria a instância do Excel; visible=False roda em segundo plano
 app.display_alerts = False   # suprime qualquer alerta/pop-up do Excel, incluindo esse
 wb = app.books.open(
-    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 -AUTOMATIZADO3 julho.xlsx',
+    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 - Jul26 AUTOMATIZADO4.xlsx',
     update_links=0   # 0 = não atualiza vínculos automaticamente ao abrir, e não pergunta nada
 )
 
@@ -37,7 +37,7 @@ abrir_planilha_filtro_ajustado.range(f'A{proxima_linha_vazia}').paste(paste='val
 print(proxima_linha_vazia)
 
 
-ultima_linha_filtro_ajustado = abrir_planilha_filtro_ajustado.range('N2').end('down').row #aqui range sgnifica um pedaçõ do codigo(P2) é o ponrto que ele usa como referencia, o .end(down) siginifia a mesma coisa que aperta ctrl seta ora baixo, entao vai pra ultima linha e .row te fala o nuemro dessa linha, ou seja ele usa a celula p2 como referencia, vai pra ultima linha e ega esse n8mero, oque sinigiffica a ultima linha da planilha 
+ultima_linha_filtro_ajustado = abrir_planilha_filtro_ajustado.range('A2').end('down').row #aqui range sgnifica um pedaçõ do codigo(P2) é o ponrto que ele usa como referencia, o .end(down) siginifia a mesma coisa que aperta ctrl seta ora baixo, entao vai pra ultima linha e .row te fala o nuemro dessa linha, ou seja ele usa a celula p2 como referencia, vai pra ultima linha e ega esse n8mero, oque sinigiffica a ultima linha da planilha 
 ultima_coluna_filtro_ajustado = abrir_planilha_filtro_ajustado.range('A2').end('right').column # mesma logica da linha de cima, porem ele quer saber aultima coluna, afim de fechar o quadrado da tabela total que vai ser selecionado para ser copiado no futuro 
 tabela_filtro_ajustado = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, ultima_coluna_filtro_ajustado))
 tabela_filtro_ajustado.api.AutoFilter(
@@ -47,14 +47,17 @@ tabela_filtro_ajustado.api.AutoFilter(
 )
 tabela_filtro_ajustado.api.AutoFilter(
     Field=11,
-    Criteria1=["Pecas", "EQPUsado", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", " ", ""],
+    Criteria1=["Pecas", "EQPUsado", "EQPNovo", "Avaria", "Servicos", "Avaria", "PLPrev", "Comissao", "Comissão"],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
 
-
+print("Última linha:", ultima_linha_filtro_ajustado)
 tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
+print("Endereço:", tabela_filtro_ajustado2.address)
 coluna_n_visivel = tabela_filtro_ajustado2.api.SpecialCells(12)
 coluna_n_visivel.FormulaR1C1 = "=RC[-3]"
+
+
 
 time.sleep(3)
 abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tudo visível de novo
@@ -110,6 +113,8 @@ for linha in range(2, ultima_linha_filtro_ajustado + 1):           #ele cria a v
         abrir_planilha_filtro_ajustado.range((linha, 14)).value = ""       #se nao contiver nenhum, deixa vazio 
 
 abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tudo visível de novo
+abrir_planilha.api.ShowAllData() # tira os filtros, tirando da outra planilha só por precaução
+
 
 #filtrando para ficcar somente aqueles que tem o valor vazio,  que serão excluidos no power query 
 tabela_filtro_ajustado.api.AutoFilter(
@@ -119,22 +124,42 @@ tabela_filtro_ajustado.api.AutoFilter(
 )
 
 
-print("chegou até o teste")
-range_colunaa = abrir_planilha.range((2, 1), (ultima_linha_filtro_ajustado, 1)) 
-coluna_a_visivel = range_colunaa.api.SpecialCells(12)
-valores = []
-for celula in coluna_a_visivel:
-    valores.append(celula.Value)
+print("---------- listagem dos pvs a serem excluidos ----------")
+range_colunaa = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, 1)) #aqui nessa linha ele pega a range que passou pelo filtro 
+coluna_a_visivel = range_colunaa.api.SpecialCells(12)  # ja aqui tonra essa rnage filtrada, visivel, para que possamos manuipular os valores dela 
 
-    #daqui pra frente e uma verificação inutil 
-for linha in range( 2, ultima_linha_filtro_ajustado+ 1): 
- coluna_a = abrir_planilha_filtro_ajustado.range((linha, 1)).value 
- if coluna_a in valores:
-     print(coluna_a)
- else:
-    continue
- 
-print("Programa finalizado")
+valores = set()      #set tem a função dde receber valores e excluir aqueles repetidos                                   
+for celula in coluna_a_visivel:    #os valores da range que a gente pegou, pega valor por valor                      
+    valores.add(celula.Value)                 #adiciona o campo value desses valores dentro do nosso set                                            
+for valor in valores:
+    print(valor)    #esse fot foi para pegar os valores que estao dentro do set valores, que sao aqueles que nao estão repetidos, pois se nao pegasse os valores dentro dele, pegaria os que nao tao dentro do set, logo os repetidos.
 
 
-#MELHORAR FILTROS POIS ALGUNS EQPUsados TAO FICANDO COM VALOR pecas, INVESTIGAR.
+print("--------------- processo de listar PVS a serem excluidos ---------------")
+time.sleep(5)
+abrir_planilha_PVS_deletados = wb.sheets("PVS_deletados") #abre a panilha de pvs pra serem deletados 
+proxima_linha_vazia_pv_excluidos = abrir_planilha_PVS_deletados.range('A1').end('down').row + 1 #faz a mesma coisa de antes, porem agora usa como referencia a primeira celula da minha range,.end('down') vai até a ultima linha preenchida + 1, oque da na primeira linha vazia da primeira coluna, que e onde a gente vai colar nossas infromações 
+ultima_linha_preenchida_pv_excluidos = abrir_planilha_PVS_deletados.range('A1').end('down').row
+
+print(proxima_linha_vazia_pv_excluidos)
+
+print("---------- jogar os pvs na outra planilha ----------")
+
+for valor in valores:
+    abrir_planilha_PVS_deletados.range((linha_pv_excluido,1)).value = valor
+    linha_pv_excluido += 1
+    print(f" a linha 'A{linha_pv_excluido}' recebe o valor {valor}")  
+
+
+
+
+
+
+
+
+
+
+
+
+print("---------- Programa finalizado ----------")
+
