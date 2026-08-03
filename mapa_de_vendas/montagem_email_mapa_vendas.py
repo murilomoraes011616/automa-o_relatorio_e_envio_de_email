@@ -28,10 +28,6 @@ print("--------")
 
 
 
-
-
-
-
 print("--------")
 mail.Subject = f"Mapa de vendas do dia {data_de_hoje}." # feito para definir o assunto do email
 assunto_do_email = mail.Subject
