@@ -151,7 +151,7 @@ wb.api.RefreshAll()
 
 ####################################################################################################################################################################
 
-time.sleep(50)
+time.sleep(35)
 
 
 aba = wb.sheets('Mapa Diário')   # 1. ele pega o wb.sheets na aba da tabela dinamica e trasnforma na variavel aba
