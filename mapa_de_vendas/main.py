@@ -147,26 +147,11 @@ for docnum in valores:         #para cada valor dentro do set valores
     linha_pv_excluido += 1           #faz virar a proima linha 
     print(f" a linha 'A{linha_pv_excluido}' recebe o valor {docnum}") #print apenas para vizualização 
 
+wb.api.RefreshAll()
 
-#POR PRECAUÇÃO:
-#wb.sheets('Pedido de venda')
-#abrir_planilha.api.ShowAllData()
-#wb.sheets('Filtro - canal ajustado')
-#abrir_planilha_filtro_ajustado.api.ShowAllData() # tira os filtros, tirando da outra planilha só por precaução
-##############################################################################################################################################################################
+####################################################################################################################################################################
 
-#CODIGO M E POWER QUERY 
-
-
-
-
-
-
-
-
-##############################################################################################################################################################################
-
-#    time.sleep(50)
+time.sleep(50)
 
 
 aba = wb.sheets('Mapa Diário')   # 1. ele pega o wb.sheets na aba da tabela dinamica e trasnforma na variavel aba
