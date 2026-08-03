@@ -6,7 +6,7 @@ import time # importa biblioteca para poder dar o comando de esperar 10 segundos
 app = xw.App(visible=True)   # cria a instância do Excel; visible=False roda em segundo plano
 app.display_alerts = False   # suprime qualquer alerta/pop-up do Excel, incluindo esse
 wb = app.books.open(
-    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 - Jul26 AUTOMATIZADO4.xlsx',
+    r'U:\AREA_DE_DADOS\Indicadores\Gestao de Contratos\FILIAL SP\KPI - Mapa de Vendas\Mapa de vendas v0 - Jul26.xlsx',
     update_links=0   # 0 = não atualiza vínculos automaticamente ao abrir, e não pergunta nada
 )
 
@@ -23,7 +23,7 @@ tabela = abrir_planilha.range((2, 1), (ultima_linha, ultima_coluna)) # abrir_pla
 print(tabela) #print o valor da range acima 
 
 
-tabela.api.AutoFilter(Field=16, Criteria1 = "#N/D") #tabela.api.autofilter tem o campo FIELD=16 que significa a coluna, que no caso de A até P, a coluna P é a 16, e o campo criterial é o filtro que vao colocar naquela coluna, e o filtro e so na quela coluna pois uarem os dados dela como parametro ams usa a tabela range inteira por que queremos os dados de todas as linhas mas o filtroé só em uma coluna 
+tabela.api.AutoFilter(Field=16, Criteria1 = "0") #tabela.api.autofilter tem o campo FIELD=16 que significa a coluna, que no caso de A até P, a coluna P é a 16, e o campo criterial é o filtro que vao colocar naquela coluna, e o filtro e so na quela coluna pois uarem os dados dela como parametro ams usa a tabela range inteira por que queremos os dados de todas as linhas mas o filtroé só em uma coluna 
 tabela.select() #apenas mostra a tange selecionada visualmente pro programador 
 tabela_filtrada = tabela.api.SpecialCells(12) #nessa linha tranforma a range definida acima em obejto para se tornar manipulavel 
 tabela_filtrada.Copy() #copia essa range 
@@ -66,8 +66,6 @@ coluna_n_correcao = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_
 coluna_n_correcao.api.Replace(What="Venda servicos", Replacement="Servicos", LookAt=1) # agora roda com tudo visível
 tabela_filtro_ajustado.api.AutoFilter(Field=11, Criteria1 = "Locacao")
 tabela_filtro_ajustado2 = abrir_planilha_filtro_ajustado.range((2, 14), (ultima_linha_filtro_ajustado, 14))
-
-
 
 
 
@@ -122,44 +120,3 @@ tabela_filtro_ajustado.api.AutoFilter(
     Criteria1=["#N/D", "0", "vazia", "Vazia", "VAZIA", "#VALOR!", "", " "],
     Operator=7  # xlFilterValues — diz "filtra por essa lista de valores"
 )
-
-
-print("---------- listagem dos pvs a serem excluidos ----------")
-range_colunaa = abrir_planilha_filtro_ajustado.range((2, 1), (ultima_linha_filtro_ajustado, 1)) #aqui nessa linha ele pega a range que passou pelo filtro 
-coluna_a_visivel = range_colunaa.api.SpecialCells(12)  # ja aqui tonra essa rnage filtrada, visivel, para que possamos manuipular os valores dela 
-
-valores = set()      #set tem a função dde receber valores e excluir aqueles repetidos                                   
-for celula in coluna_a_visivel:    #os valores da range que a gente pegou, pega valor por valor                      
-    valores.add(celula.Value)                 #adiciona o campo value desses valores dentro do nosso set                                            
-for valor in valores:
-    print(valor)    #esse fot foi para pegar os valores que estao dentro do set valores, que sao aqueles que nao estão repetidos, pois se nao pegasse os valores dentro dele, pegaria os que nao tao dentro do set, logo os repetidos.
-
-
-print("--------------- processo de listar PVS a serem excluidos ---------------")
-time.sleep(5)
-abrir_planilha_PVS_deletados = wb.sheets("PVS_deletados") #abre a panilha de pvs pra serem deletados 
-proxima_linha_vazia_pv_excluidos = abrir_planilha_PVS_deletados.range('A1').end('down').row + 1 #faz a mesma coisa de antes, porem agora usa como referencia a primeira celula da minha range,.end('down') vai até a ultima linha preenchida + 1, oque da na primeira linha vazia da primeira coluna, que e onde a gente vai colar nossas infromações 
-ultima_linha_preenchida_pv_excluidos = abrir_planilha_PVS_deletados.range('A1').end('down').row
-
-print(proxima_linha_vazia_pv_excluidos)
-
-print("---------- jogar os pvs na outra planilha ----------")
-
-for valor in valores:
-    abrir_planilha_PVS_deletados.range((linha_pv_excluido,1)).value = valor
-    linha_pv_excluido += 1
-    print(f" a linha 'A{linha_pv_excluido}' recebe o valor {valor}")  
-
-
-
-
-
-
-
-
-
-
-
-
-print("---------- Programa finalizado ----------")
-
