@@ -1,53 +1,236 @@
-# KPI - Mapa de Vendas (automação xlwings)
+# 📊 Automação do Mapa de Vendas
 
-Script em Python que automatiza a atualização e o ajuste do relatório "Mapa de Vendas", eliminando o trabalho manual de filtrar e copiar linhas com valores inconsistentes (`#N/D`, `0`, vazio, `#VALOR!`) para uma aba de ajuste.
+Automação desenvolvida em **Python** para eliminar atividades manuais do processo diário de geração do **Mapa de Vendas**.
 
-> Este projeto está em desenvolvimento e foi construído como estudo prático de xlwings, então o código e este README evoluem junto com o aprendizado.
+O projeto realiza desde a atualização dos dados no Excel até o envio automático do relatório em PDF para todos os destinatários da empresa utilizando o Microsoft Outlook.
 
-## O que o script faz
+---
 
-1. Abre o Excel via `xlwings` e carrega a planilha `Mapa de vendas`.
-2. Ativa a aba `Pedido de venda` e força a atualização de todas as conexões de dados (`RefreshAll`).
-3. Descobre dinamicamente o tamanho real da tabela de pedidos (última linha e última coluna com dado).
-4. Aplica um filtro (`AutoFilter`) na coluna `Canal de venda oficial`, mantendo visível apenas as linhas com `#N/D`.
-5. Copia só as linhas visíveis (`SpecialCells` tipo 12 — visível) e cola no final dos dados já existentes na aba `Filtro - canal ajustado`.
-6. Na aba de destino, aplica um segundo filtro por múltiplos critérios (`#N/D`, `0`, vazio, `#VALOR!`) para isolar o que precisa de ajuste manual.
+# 🚀 Funcionalidades
 
-## Como rodar
+O sistema executa automaticamente todo o fluxo abaixo:
+
+* Atualiza as conexões do Excel e do Power Query.
+* Filtra registros com erros.
+* Trata e padroniza os dados.
+* Classifica automaticamente contratos de Locação.
+* Identifica pedidos que devem ser excluídos.
+* Remove pedidos duplicados.
+* Alimenta automaticamente a tabela utilizada pelo Power Query.
+* Atualiza novamente todas as consultas.
+* Configura a impressão do relatório.
+* Exporta o Mapa de Vendas para PDF.
+* Cria automaticamente um e-mail no Outlook.
+* Insere assunto e corpo do e-mail.
+* Carrega automaticamente a assinatura do Outlook.
+* Adiciona destinatários e cópias.
+* Anexa o PDF gerado.
+* Abre o e-mail para conferência (ou pode ser configurado para envio automático).
+
+---
+
+# 🛠 Tecnologias utilizadas
+
+* Python 3
+* xlwings
+* pywin32
+* Microsoft Excel
+* Microsoft Outlook
+* Power Query
+
+---
+
+# 📂 Estrutura do projeto
+
+```text
+📁 automacao_mapa_vendas
+│
+├── main.py                 # Automação do Excel
+├── envio_email.py          # Automação do Outlook
+├── README.md
+│
+└── MAPA DE VENDAS.pdf      # Relatório gerado automaticamente
+```
+
+---
+
+# 🔄 Fluxo completo da automação
+
+```text
+Início
+   │
+   ▼
+Abre o Excel
+   │
+   ▼
+Atualiza Power Query
+   │
+   ▼
+Filtra registros
+   │
+   ▼
+Corrige informações
+   │
+   ▼
+Classifica contratos
+   │
+   ▼
+Gera lista de exclusões
+   │
+   ▼
+Atualiza novamente as consultas
+   │
+   ▼
+Exporta o relatório em PDF
+   │
+   ▼
+Abre o Outlook
+   │
+   ▼
+Cria um novo e-mail
+   │
+   ▼
+Preenche assunto
+   │
+   ▼
+Preenche corpo da mensagem
+   │
+   ▼
+Carrega assinatura do Outlook
+   │
+   ▼
+Adiciona destinatários
+   │
+   ▼
+Adiciona cópias
+   │
+   ▼
+Anexa o PDF
+   │
+   ▼
+Abre o e-mail para conferência
+```
+
+---
+
+# 📈 Parte 1 — Tratamento do Excel
+
+A primeira etapa da automação é responsável por todo o processamento dos dados.
+
+## O que é realizado
+
+* Atualização automática das conexões.
+* Aplicação de filtros.
+* Correção de classificações.
+* Identificação de contratos.
+* Geração da lista de PVS excluídos.
+* Atualização do Power Query.
+* Exportação automática do relatório em PDF.
+
+Essa etapa elimina praticamente todo o trabalho manual realizado dentro do Excel.
+
+---
+
+# 📧 Parte 2 — Envio automático do relatório
+
+Após a geração do PDF, uma segunda automação inicia utilizando a biblioteca **pywin32**, permitindo controlar o Microsoft Outlook através da interface COM do Windows.
+
+O script executa automaticamente as seguintes etapas:
+
+* conecta ao Outlook;
+* cria um novo e-mail;
+* obtém automaticamente a assinatura padrão do usuário;
+* monta o corpo da mensagem em HTML;
+* insere a data atual no texto do e-mail;
+* define o assunto;
+* adiciona todos os destinatários;
+* adiciona os destinatários em cópia (CC);
+* anexa o PDF recém-gerado;
+* abre o e-mail para conferência antes do envio.
+
+Caso desejado, o método `Display()` pode ser substituído por `Send()`, permitindo envio totalmente automático.
+
+---
+
+# 📬 Corpo do e-mail
+
+O sistema gera automaticamente uma mensagem semelhante a:
+
+> Bom dia,
+>
+> Seguem anexos o mapa de venda, atualizado até **DD/MM/AAAA**.
+>
+> Atenciosamente,
+
+A assinatura configurada no Outlook é adicionada automaticamente ao final da mensagem.
+
+---
+
+# 📎 Anexo automático
+
+O arquivo gerado durante a etapa do Excel é anexado automaticamente ao e-mail.
+
+Exemplo:
+
+```
+MAPA DE VENDAS.pdf
+```
+
+---
+
+# ⚙️ Como executar
+
+Instale as dependências:
+
+```bash
+pip install xlwings pywin32
+```
+
+Depois execute:
 
 ```bash
 python main.py
 ```
 
-Requer o arquivo Excel de origem acessível no caminho configurado no script (rede corporativa) e o Excel instalado na máquina (o xlwings controla uma instância real do Excel).
+Ao término da geração do PDF:
 
-## Estrutura conceitual do fluxo
-
-```
-Abrir arquivo (xlwings)
-  → Aba "Pedido de venda"
-      → RefreshAll() + espera
-      → Descobrir range da tabela (última linha/coluna)
-      → Filtrar coluna P por "#N/D"
-      → Copiar só linhas visíveis
-  → Aba "Filtro - canal ajustado"
-      → Colar no final dos dados existentes
-      → Filtrar coluna N por múltiplos critérios de inconsistência
+```bash
+python envio_email.py
 ```
 
-## Conceitos-chave usados (para quem está aprendendo, como eu)
+Caso os dois scripts sejam integrados em um único fluxo, basta executar o arquivo principal.
 
-- **`.end('down')` / `.end('right')`**: simula Ctrl+Seta no teclado para achar dinamicamente onde os dados terminam, sem precisar fixar números de linha/coluna no código.
-- **`.api`**: ponte do xlwings para os métodos nativos do Excel/VBA (usado para `AutoFilter` e `SpecialCells`, que não têm atalho direto no xlwings).
-- **`AutoFilter` não retorna a tabela filtrada** — ele só ativa o filtro (esconde linhas). Quem devolve as células realmente visíveis é `SpecialCells(12)`, chamado *depois* do filtro, sobre o mesmo range.
-- **Filtro por múltiplos valores**: `Criteria1` como lista + `Operator=7` (`xlFilterValues`), já que o `or` do Python não funciona como "múltiplas opções" dentro de uma string.
+---
 
-## Problema conhecido / em investigação
+# 📋 Requisitos
 
-`RefreshAll()` às vezes não atualiza a conexão de dados mesmo quando o clique manual em "Atualizar Tudo" também falha — suspeita é a propriedade de conexão "Atualizar esta conexão ao usar Atualizar Tudo" estar desmarcada nas Propriedades da Conexão (aba Dados → Conexões).
+* Windows
+* Microsoft Excel
+* Microsoft Outlook Desktop
+* Python 3.10+
+* xlwings
+* pywin32
+* Arquivo Excel configurado
+* Conexões do Power Query funcionando
 
-## Melhorias futuras planejadas
+---
 
-- Substituir `time.sleep(15)` por uma espera real do término do `RefreshAll()`.
-- Tratar o caso da aba de destino estar completamente vazia (primeira execução), onde `.end('down')` se comporta de forma diferente.
-- Modularizar em arquivos separados (abertura do Excel, filtro, cópia/colagem) em vez de um único script.
+# 💡 Melhorias futuras
+
+* Remover o uso de `time.sleep()` utilizando espera inteligente.
+* Modularizar o projeto em funções.
+* Adicionar tratamento de exceções.
+* Gerar arquivos de log.
+* Configurar caminhos através de arquivo `.env`.
+* Permitir configuração dinâmica dos destinatários.
+* Enviar o e-mail automaticamente utilizando `mail.Send()`.
+* Agendar a execução pelo Agendador de Tarefas do Windows.
+* Criar interface gráfica para execução da automação.
+
+---
+
+# 👨‍💻 Autor
+
+**Murilo Moraes**
+
+Projeto desenvolvido para automatizar o processo diário de geração e distribuição do Mapa de Vendas, reduzindo atividades manuais, aumentando a confiabilidade dos dados e agilizando o envio das informações para toda a equipe.
